@@ -9,7 +9,7 @@ class Cell extends Component {
   render() {
     return (
       <div
-        className="cell"
+        className={`cell ${this.props.isInitial ? "initial" : ""}`}
         onClick={(e) => {
           // alert(this.state.number);
           this.setState({
@@ -28,16 +28,16 @@ class App extends Component {
     return (
       <div className="App">
         <div className="board">
-          <Cell number={2} />
+          <Cell number={2} isInitial={true} />
           <Cell number={4} />
           <Cell number={4} />
           <Cell number={4} />
           <Cell number={4} />
+          <Cell number={4} isInitial={true} />
           <Cell number={4} />
           <Cell number={4} />
           <Cell number={4} />
-          <Cell number={4} />
-          <Cell number={4} />
+          <Cell number={4} isInitial={true} />
           <Cell number={4} />
           <Cell number={4} />
           <Cell number={4} />
