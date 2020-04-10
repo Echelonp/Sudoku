@@ -3,8 +3,23 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class Cell extends Component {
+  state = {
+    number: 1,
+  };
   render() {
-    return <div className="cell">{this.props.number}</div>;
+    return (
+      <div
+        className="cell"
+        onClick={(e) => {
+          // alert(this.state.number);
+          this.setState({
+            number: (this.state.number + 1) % 5,
+          });
+        }}
+      >
+        {this.state.number !== 0 && this.state.number}
+      </div>
+    );
   }
 }
 
