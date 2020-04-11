@@ -2,18 +2,16 @@ import React, { Component } from "react";
 import "./App.css";
 
 class Cell extends Component {
-  state = {
-    number: 5,
-  };
   render() {
     return (
       <div
         className={`cell ${this.props.isInitial ? "initial" : ""}`}
         onClick={(e) => {
-          // alert(this.state.number);
-          this.setState({
-            number: (this.state.number + 1) % 5,
-          });
+          if (this.props.isInitial) {
+            return;
+          }
+
+          this.props.onChange((this.props.number + 1) % 5);
         }}
       >
         {this.props.number !== 0 && this.props.number}
@@ -46,6 +44,13 @@ class Board extends Component {
               key={`cell-${i}-${j}`}
               number={number}
               isInitial={this.state.initial[i][j]}
+              onChange={(newNumber) => {
+                const { board } = this.state;
+                board[i][j] = newNumber;
+                this.setState({
+                  board: board,
+                });
+              }}
             />
           ))
         )}
