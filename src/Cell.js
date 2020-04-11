@@ -1,22 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Cell extends Component {
-  render() {
-    return (
-      <div
-        className={`cell ${this.props.isInitial ? "initial" : ""}`}
-        onClick={(e) => {
-          if (this.props.isInitial) {
-            return;
-          }
+const Cell = (props) => (
+  <div
+    className={`cell ${props.isInitial ? "initial" : ""}`}
+    onClick={(e) => {
+      if (props.isInitial) {
+        return;
+      }
 
-          this.props.onChange((this.props.number + 1) % 5);
-        }}
-      >
-        {this.props.number !== 0 && this.props.number}
-      </div>
-    );
-  }
-}
+      props.onChange((props.number + 1) % 5);
+    }}
+  >
+    {props.number !== 0 && props.number}
+  </div>
+);
 
 export default Cell;
