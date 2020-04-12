@@ -3,6 +3,7 @@ import React from "react";
 const Cell = (props) => (
   <div
     className={`cell ${props.isInitial ? "initial" : ""}`}
+    // when we click it will call onChange() function
     onClick={(e) => {
       if (props.isInitial) {
         return;

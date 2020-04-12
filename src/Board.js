@@ -31,6 +31,7 @@ class Board extends Component {
     timer: 0,
     loading: true,
   };
+
   submit = () => {
     const isValid = validate(this.state.board);
 
@@ -60,12 +61,12 @@ class Board extends Component {
         return resp.json();
       })
       .then((jsonResponse) => {
-        console.log(jsonResponse.board);
+        // console.log(jsonResponse.board);
         this.setState({
           board: jsonResponse.board,
           timer: 0,
-          initial: jsonResponse.board.map((row, i) =>
-            row.map((item, j) => item !== 0)
+          initial: jsonResponse.board.map((row) =>
+            row.map((item) => item !== 0)
           ),
           loading: false,
         });
@@ -73,12 +74,12 @@ class Board extends Component {
   };
 
   componentDidMount = () => {
+    this.restartBoard();
     this.interval = setInterval(() => {
       this.setState({
         timer: this.state.timer + 1,
       });
     }, 1000);
-    this.restartBoard();
   };
 
   componentWillUnmount = () => {
@@ -89,6 +90,7 @@ class Board extends Component {
     return (
       <div>
         <p className="timer">Elapsed Time: {this.state.timer} sec</p>
+
         <div className="board">
           {!this.state.loading &&
             this.state.board.map((row, i) =>
@@ -97,6 +99,11 @@ class Board extends Component {
                   key={`cell-${i}-${j}`}
                   number={number}
                   isInitial={this.state.initial[i][j]}
+                  // onChange() will get data from Cell and update to the board
+                  // Notice the process that we clicked. It happened after the board was generated
+                  // Normally the map process should end before we call onChange to update so we shouldn't
+                  // use i,j that we created before to update like this
+                  // But somehow in React we can use this trick
                   onChange={(newNumber) => {
                     const { board } = this.state;
                     board[i][j] = newNumber;
@@ -108,6 +115,7 @@ class Board extends Component {
               ))
             )}
         </div>
+
         <button className="restart-button" onClick={this.restartBoard}>
           Restart
         </button>
